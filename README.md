@@ -1,2 +1,2 @@
 # gitree
-A Rust crate wraping the git-subtree script.
+A Rust crate wrapping the git-subtree script.
