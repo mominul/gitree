@@ -3,13 +3,11 @@ use run_script::{run, ScriptOptions};
 const SCRIPT: &str = include_str!("git-subtree.sh");
 
 fn main() {
-    let mut args = std::env::args();
+    let args = std::env::args().skip(1).collect();
 
     // The script calls itself recursively, so give the path of this executable via environment variable.
-    let exe_path = args.next().unwrap();
-    std::env::set_var("GITREE", exe_path);
+    std::env::set_var("GITREE", std::env::current_exe().unwrap());
 
-    let args = args.collect();
     let (code, mut output, mut error) = run(SCRIPT, &args, &ScriptOptions::new()).unwrap();
 
     // Replace 'git subtree' with `gitree` in the output.
